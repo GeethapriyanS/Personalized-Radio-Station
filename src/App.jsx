@@ -1,5 +1,5 @@
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
-import Radio from './components/functionalcomponents/radio';
+import Radio from './components/functionalcomponents/Radio';
 import Header from './components/functionalcomponents/Header';
 import TamilRadioApp from './components/functionalcomponents/TamilRadio';
 function App() {
