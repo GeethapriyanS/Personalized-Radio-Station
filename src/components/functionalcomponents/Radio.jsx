@@ -17,7 +17,7 @@ const Radio = ()=>{
 
   const setupApi = async (stationFilter) => {
     const api = new RadioBrowserApi(fetch.bind(window), "My Radio App", true);
-
+    api.getBaseUrl = "https://all.api.radio-browser.info";
     const stations = await api
       .searchStations({
         language: "english",
