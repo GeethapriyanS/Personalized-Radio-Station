@@ -3,6 +3,7 @@ import { RadioBrowserApi, StationSearchType } from "radio-browser-api";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "../../css/Radio.css"
+import image1 from "../../assets/image4.jpg"
 
 const Radio = ()=>{
   const [stations, setStations] = useState();
@@ -21,7 +22,7 @@ const Radio = ()=>{
       .searchStations({
         language: "english",
         tag: stationFilter,
-        limit: 30
+        limit: 15
       })
       .then((data) => {
         return data;
@@ -45,7 +46,7 @@ const Radio = ()=>{
   ];
 
   const setDefaultSrc = (event) => {
-    event.target.src = defaultImage;
+    event.target.src = image1;
   };
 
   return (
@@ -73,7 +74,7 @@ const Radio = ()=>{
                     alt="station logo"
                     onError={setDefaultSrc}
                   />
-                  <div className="name">{station.name}</div>
+                  <div className="name">{station.name.substring(0,15)}</div>
                 </div>
 
                 <AudioPlayer

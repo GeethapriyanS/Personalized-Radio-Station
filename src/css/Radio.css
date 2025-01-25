@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 .App {
   text-align: center;
 }
@@ -172,4 +171,50 @@ audio {
   img {
     display: none;
   }
+}
+
+.add-to-playlist {
+  margin: 0.25em;
+  border: 1px solid #e36bae;
+  border-radius: 10px;
+  padding: 0.25em 0.75em;
+  background-color: #e36bae;
+  font-family: inherit;
+  &:hover {
+    cursor: pointer;
+    background: linear-gradient(to bottom right, #e36bae, #fb743e);
+  }
+}
+
+.remove-from-playlist {
+  margin: 0.25em;
+  border: 1px solid #e36bae;
+  border-radius: 10px;
+  padding: 0.25em 0.75em;
+  background-color: #e36bae;
+  font-family: inherit;
+  &:hover {
+    cursor: pointer;
+    background: linear-gradient(to bottom right, #e36bae, #fb743e);
+  }
+}
+
+.stations-button{
+  margin: 0.25em;
+  border: 1px solid #e36bae;
+  border-radius: 10px;
+  padding: 0.25em 0.75em;
+  background-color: #e36bae;
+  font-family: inherit;
+  &:hover {
+    cursor: pointer;
+    background: linear-gradient(to bottom right, #e36bae, #fb743e);
+  }
+}
+.stations-style{
+  margin-bottom: 50px;
+}
+.link{
+  text-decoration: none;
+  color: white;
 }
