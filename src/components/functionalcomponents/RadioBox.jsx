@@ -15,7 +15,7 @@ const RadioBox = () => {
   const fetchStations = async (filter) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/stations?by=tag&searchterm=${filter}&limit=15`
+        `https://personalized-radio-station.vercel.app/api/stations?by=tag&searchterm=${filter}&limit=15`
       );
       const data = await response.json();
       setStations(data);
