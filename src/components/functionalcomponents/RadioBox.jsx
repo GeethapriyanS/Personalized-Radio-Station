@@ -16,18 +16,17 @@ const RadioBox = ()=>{
   }, [stationFilter]);
 
   const setupApi = async (stationFilter) => {
-    const api = new RadioBrowserApi(fetch.bind(window), "My Radio App", true);
-    api.getBaseUrl = "https://all.api.radio-browser.info";
-    const stations = await api
-      .searchStations({
-        language: "english",
-        tag: stationFilter,
-        limit: 15
-      })
-      .then((data) => {
-        return data;
+    const proxyUrl = "https://personalized-radio-station.vercel.app/api/stations";
+  
+    const stations = await fetch(
+      `${proxyUrl}?language=english&tag=${stationFilter}&limit=15`
+    )
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error("Error fetching stations:", error);
+        return [];
       });
-
+  
     return stations;
   };
 
