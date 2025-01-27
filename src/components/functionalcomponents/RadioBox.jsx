@@ -5,7 +5,7 @@ import "react-h5-audio-player/lib/styles.css";
 import "../../css/Radio.css"
 import image1 from "../../assets/image4.jpg"
 
-const Radio = ()=>{
+const RadioBox = ()=>{
   const [stations, setStations] = useState();
   const [stationFilter, setStationFilter] = useState("all");
 
@@ -94,4 +94,4 @@ const Radio = ()=>{
   );
 }
 
-export default Radio;
+export default RadioBox;
