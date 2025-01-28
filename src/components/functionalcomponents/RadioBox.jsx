@@ -16,7 +16,7 @@ const RadioBox = () => {
     try {
       const searchTerm = filter === "all" ? "" : filter;
       const response = await fetch(
-        // `https://personalized-radio-station.onrender.com/api/stations?language=english&tag=${searchTerm}&limit=15`
+        `https://personalized-radio-station.onrender.com/api/stations?language=english&tag=${searchTerm}&limit=15`
         //  `http://localhost:5000/api/stations?language=english&tag=${searchTerm}&limit=15`
       );
       const data = await response.json();
