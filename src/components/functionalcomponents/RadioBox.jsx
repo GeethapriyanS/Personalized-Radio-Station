@@ -15,7 +15,7 @@ const RadioBox = () => {
   const fetchStations = async (filter) => {
     try {
       const response = await fetch(
-        `/api/stations?by=tag&searchterm=${filter}&limit=15`
+        `https://personalized-radio-station.onrender.com/api/stations?by=tag&searchterm=${filter}&limit=15`
       );
       const data = await response.json();
       setStations(data);
