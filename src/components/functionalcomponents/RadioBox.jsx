@@ -7,6 +7,7 @@ import image1 from "../../assets/image4.jpg";
 const RadioBox = () => {
   const [stations, setStations] = useState([]);
   const [stationFilter, setStationFilter] = useState("all");
+  const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {
     fetchStations(stationFilter)
@@ -45,6 +46,16 @@ const RadioBox = () => {
     event.target.src = image1;
   };
 
+  const addToPlaylist = (station) => {
+    if (!playlist.find((item) => item.urlResolved === station.urlResolved)) {
+      setPlaylist([...playlist, station]);
+    }
+  };
+
+  const removeFromPlaylist = (station) => {
+    setPlaylist(playlist.filter((item) => item.urlResolved !== station.urlResolved));
+  };
+
   return (
     <div className="radio">
       <div className="filters">
@@ -80,9 +91,54 @@ const RadioBox = () => {
               autoPlayAfterSrcChange={false}
               crossOrigin="anonymous"
             />
+            <button
+                className="add-to-playlist"
+                onClick={() => addToPlaylist(station)}
+              >
+                Add to Playlist
+              </button>
           </div>
         ))}
       </div>
+
+      <h2>Custom Playlist</h2>
+      <div className="playlist">
+        {playlist.length > 0 ? (
+          playlist.map((station, index) => (
+            <div className="station" key={index}>
+              <div className="stationName">
+                <img
+                  className="logo"
+                  src={station.favicon}
+                  alt="station logo"
+                  onError={setDefaultSrc}
+                />
+                <div className="name">{station.name}</div>
+              </div>
+
+              <AudioPlayer
+                className="player"
+                src={station.urlResolved}
+                showJumpControls={false}
+                layout="stacked"
+                customProgressBarSection={[]}
+                customControlsSection={["MAIN_CONTROLS", "VOLUME_CONTROLS"]}
+                autoPlayAfterSrcChange={false}
+              />
+
+              <button
+                className="remove-from-playlist"
+                onClick={() => removeFromPlaylist(station)}
+              >
+                Remove from Playlist
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>Your playlist is empty. Add stations to your playlist!</p>
+        )}
+      </div>
+
     </div>
   );
 };

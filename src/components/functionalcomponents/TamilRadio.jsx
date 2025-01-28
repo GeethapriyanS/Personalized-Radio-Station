@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { RadioBrowserApi } from "radio-browser-api";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "../../css/Radio.css";
@@ -11,23 +10,21 @@ const Radio = () => {
   const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {
-    setupApi(stationFilter).then((data) => {
-      setStations(data);
-    });
+    setupApi(stationFilter)
   }, [stationFilter]);
 
-  const setupApi = async (stationFilter) => {
-    const api = new RadioBrowserApi(fetch.bind(window), "Tamil Radio App", true);
-    api.getBaseUrl = "https://all.api.radio-browser.info";
-    const stations = await api
-      .searchStations({
-        language: "tamil", // Fetch Tamil stations
-        tag: stationFilter === "all" ? "" : stationFilter, // Apply filter
-        limit: 30,
-      })
-      .then((data) => data);
-
-    return stations;
+  const setupApi = async (filter) => {
+    try {
+      const searchTerm = filter === "all" ? "" : filter;
+      const response = await fetch(
+        `https://personalized-radio-station.onrender.com/api/stations?language=tamil&tag=${searchTerm}&limit=15`
+        //  `http://localhost:5000/api/stations?language=english&tag=${searchTerm}&limit=15`
+      );
+      const data = await response.json();
+      setStations(data);
+    } catch (error) {
+      console.error("Error fetching stations:", error.message);
+    }
   };
 
   const filters = [
@@ -35,8 +32,7 @@ const Radio = () => {
     "kollywood",
     "devotional",
     "folk",
-    "love",
-    "all",
+    "love"
   ];
 
   const setDefaultSrc = (event) => {
