@@ -1,23 +1,26 @@
 const express = require("express");
-const RadioBrowser = require("radio-browser");
 const cors = require("cors");
+const { RadioBrowserApi } = require("radio-browser-api"); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
 app.get("/api/stations", async (req, res) => {
   try {
-    const { by = "tag", searchterm = "jazz", limit = 10 } = req.query;
+    const { language = "english", tag = "all", limit = 15 } = req.query;
 
-    const filter = {
-      by,         
-      searchterm,  
-      limit: parseInt(limit, 10), 
-    };
+    const api = new RadioBrowserApi(fetch.bind(global), "My Radio App", true);
+    api.getBaseUrl = "https://all.api.radio-browser.info";
 
-    const stations = await RadioBrowser.getStations(filter);
+    const stations = await api.searchStations({
+      language,
+      tag: tag === "all" ? "" : tag, 
+      limit: parseInt(limit, 10),
+    });
+
     res.json(stations);
   } catch (error) {
     console.error("Error fetching stations:", error.message);

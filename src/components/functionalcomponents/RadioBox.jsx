@@ -9,15 +9,18 @@ const RadioBox = () => {
   const [stationFilter, setStationFilter] = useState("all");
 
   useEffect(() => {
-    fetchStations(stationFilter);
+    fetchStations(stationFilter)
   }, [stationFilter]);
 
   const fetchStations = async (filter) => {
     try {
+      const searchTerm = filter === "all" ? "" : filter;
       const response = await fetch(
-        `https://personalized-radio-station.onrender.com/api/stations?by=tag&searchterm=${filter}&limit=15`
+        // `https://personalized-radio-station.onrender.com/api/stations?language=english&tag=${searchTerm}&limit=15`
+        //  `http://localhost:5000/api/stations?language=english&tag=${searchTerm}&limit=15`
       );
       const data = await response.json();
+      console.log(data);
       setStations(data);
     } catch (error) {
       console.error("Error fetching stations:", error.message);
@@ -69,12 +72,13 @@ const RadioBox = () => {
             </div>
             <AudioPlayer
               className="player"
-              src={station.urlResolved}
+              src={station.urlResolved ||station.url}
               showJumpControls={false}
               layout="stacked"
               customProgressBarSection={[]}
               customControlsSection={["MAIN_CONTROLS", "VOLUME_CONTROLS"]}
               autoPlayAfterSrcChange={false}
+              crossOrigin="anonymous"
             />
           </div>
         ))}
